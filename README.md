@@ -1,7 +1,16 @@
 # Prueba Técnica Rocket Code
 
+## Clonar el repositorio
+
+Primero que nada tenemos que abrir una terminal e ir a la carpeta que querramos. Una vez estemos en esa carpeta, ejecutamos el siguiente
+comando:
+```
+git clone https://github.com/Loloming/RockeTest.git
+```
+
 ## Iniciar back-end y front-end
 
+Una vez clonado el repositorio, deberíamos iniciar la app.
 Para iniciar tanto el back-end como front-end de la app, se debe abrir en la terminal los directorios root de client y de server:
 ```
 /client
@@ -29,7 +38,7 @@ Para visualizar el front-end se puede tocar ctrl+click en la URL que sale en la 
 ```
 Al completar el chat-formulario y presionar el botón de iniciar, los datos del usuario se guardarán en una variable de sesión con el key "session". Se puede ver al inspeccionar la página (se puede usar la tecla f12), en la pestaña "Aplicación".
 
-Para ver los usuarios guardados dentro de la base de datos, se puede ir a la siguiente URL:
+Para ver los usuarios guardados dentro de la base de datos, se puede hacer una petición GET a la siguiente URL:
 ```
 http://localhost:3002/users
 ```
