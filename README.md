@@ -2,7 +2,7 @@
 
 ## Clonar el repositorio
 
-Primero que nada tenemos que abrir una terminal e ir a la carpeta que querramos. Una vez estemos en esa carpeta, ejecutamos el siguiente
+Primero que nada tenemos que abrir una terminal e ir a la carpeta que queramos. Una vez estemos en esa carpeta, ejecutamos el siguiente
 comando:
 ```
 git clone https://github.com/Loloming/RockeTest.git
