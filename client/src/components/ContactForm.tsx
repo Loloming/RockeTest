@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Form, Input } from "../styles"
 
 interface ContactProps {
@@ -39,9 +39,11 @@ interface ContactProps {
 
 const ContactForm: FC<ContactProps> = ({ contact, setContact, error, setError, finishStep }) => {
 
+    const [submited, setSubmited] = useState(false);
+
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-        const phoneRegex = /^\+(?:\d{1,3})\d{4,14}$/;
+        const phoneRegex = /^(\+)?(?:\d{1,3})\d{4,14}$/;
         setContact({
             ...contact,
             [e.target.name]: e.target.value
@@ -57,6 +59,7 @@ const ContactForm: FC<ContactProps> = ({ contact, setContact, error, setError, f
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
+        setSubmited(true)
         finishStep()
     }
 
@@ -65,17 +68,16 @@ const ContactForm: FC<ContactProps> = ({ contact, setContact, error, setError, f
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <h3 style={{ color: '#000' }}>Datos de contacto</h3>
             </div>
-            <Input type="text" name="email" value={contact.email} $error={error.contactErrors.email} onChange={handleChange} />
-            <Input type="text" name="phone" value={contact.phone} $error={error.contactErrors.phone} onChange={handleChange} />
+            <Input disabled={submited} type="text" placeholder="Email" name="email" value={contact.email} $error={error.contactErrors.email} onChange={handleChange} />
+            <Input disabled={submited} type="text" placeholder="Teléfono celular" name="phone" value={contact.phone} $error={error.contactErrors.phone} onChange={handleChange} />
             <button
                 style={{
                     position: "absolute",
                     border: "none",
                     background: "transparent",
                 }}
-                disabled={(error.contactErrors.phone || error.contactErrors.email) || !contact.email || !contact.phone}
+                disabled={(error.contactErrors.phone || error.contactErrors.email) || !contact.email || !contact.phone || submited}
             ></button>
-            {/* <button disabled={(error.contactErrors.phone || error.contactErrors.email) || !contact.email || !contact.phone}>Send</button> */}
         </Form>
     )
 }

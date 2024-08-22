@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Form, Input } from '../styles/index.ts';
 
 interface NameProps {
@@ -43,8 +43,11 @@ interface NameProps {
 
 const Name: FC<NameProps> = ({ names, error, setNames, setError, finishStep }) => {
 
+    const [submited, setSubmited] = useState(false);
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
+        setSubmited(true)
         finishStep()
     }
 
@@ -82,17 +85,17 @@ const Name: FC<NameProps> = ({ names, error, setNames, setError, finishStep }) =
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <h3 style={{ color: '#000' }}>¿Cuál es tu nombre?</h3>
             </div>
-            <Input type="text" name="firstName" placeholder='Nombre' value={names.firstName} $error={error.nameErrors.firstName} onChange={handleChange}></Input>
-            <Input type="text" name="secondName" placeholder='Segundo nombre' value={names.secondName} $error={error.nameErrors.secondName} onChange={handleChange}></Input>
-            <Input type="text" name="fatherLastName" placeholder='Apellido paterno' value={names.fatherLastName} $error={error.nameErrors.fatherLastName} onChange={handleChange}></Input>
-            <Input type="text" name="motherLastName" placeholder='Apellido materno' value={names.motherLastName} $error={error.nameErrors.motherLastName} onChange={handleChange}></Input>
+            <Input disabled={submited} type="text" name="firstName" placeholder='Nombre' value={names.firstName} $error={error.nameErrors.firstName} onChange={handleChange}></Input>
+            <Input disabled={submited} type="text" name="secondName" placeholder='Segundo nombre' value={names.secondName} $error={error.nameErrors.secondName} onChange={handleChange}></Input>
+            <Input disabled={submited} type="text" name="fatherLastName" placeholder='Apellido paterno' value={names.fatherLastName} $error={error.nameErrors.fatherLastName} onChange={handleChange}></Input>
+            <Input disabled={submited} type="text" name="motherLastName" placeholder='Apellido materno' value={names.motherLastName} $error={error.nameErrors.motherLastName} onChange={handleChange}></Input>
             <button
                 style={{
                     position: "absolute",
                     border: "none",
                     background: "transparent",
                 }}
-                disabled={(error.nameErrors.fatherLastName || error.nameErrors.firstName || error.nameErrors.motherLastName || error.nameErrors.secondName) || !names.fatherLastName || !names.firstName}
+                disabled={(error.nameErrors.fatherLastName || error.nameErrors.firstName || error.nameErrors.motherLastName || error.nameErrors.secondName) || !names.fatherLastName || !names.firstName || submited}
             ></button>
         </Form>
     )

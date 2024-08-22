@@ -6,7 +6,7 @@ import router from './routes/route'
 const app = express();
 
 app.listen(3002, () => {
-    console.log(`server is now listening on port ${3002}`)
+    console.log(`server is now listening on http://localhost:${3002}/`)
 })
 
 app.use(cors())

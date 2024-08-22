@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Name from './Name.tsx';
 import woman from '../assets/woman.png'
 import DateForm from './DateForm.tsx';
@@ -6,6 +6,8 @@ import ContactForm from './ContactForm.tsx';
 import InfoMessage from './InfoMessage.tsx';
 
 const ChatBox = () => {
+
+    const boxRef = useRef<HTMLDivElement>(null);
 
     const [submitted, setSubmitted] = useState(false);
 
@@ -15,10 +17,10 @@ const ChatBox = () => {
         fatherLastName: '',
         motherLastName: ''
     })
-    const [date, setDate] = useState({
-        day: 0,
-        month: 0,
-        year: 0
+    const [date, setDate] = useState<{ day: string | number, month: string | number, year: string | number }>({
+        day: '',
+        month: '',
+        year: ''
     })
     const [contact, setContact] = useState({
         email: '',
@@ -43,6 +45,12 @@ const ChatBox = () => {
         step3: false
     })
 
+    useEffect(() => {
+        if (boxRef.current) {
+            boxRef.current.scrollTo(0, boxRef.current.scrollHeight);
+        }
+    }, [progress])
+
     function finishFirstStep() {
         setProgress({
             ...progress,
@@ -64,7 +72,7 @@ const ChatBox = () => {
 
     async function handleSubmit() {
         try {
-            const res = await fetch('http://localhost:3002/save', {
+            await fetch('http://localhost:3002/save', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -80,8 +88,7 @@ const ChatBox = () => {
                     phone: contact.phone
                 })
             })
-            const response = await res.json()
-            console.log(response)
+            alert(`¡Usuario con el email ${contact.email} creado con éxito!`)
         } catch (error) {
             console.log(error)
         }
@@ -91,7 +98,7 @@ const ChatBox = () => {
 
     return (
         <>
-            <div style={{ backgroundColor: '#fff', overflowY: 'scroll', height: '60vh', width: '25vw', borderRadius: '10px' }}>
+            <div ref={boxRef} style={{ position: 'absolute', backgroundColor: '#fff', overflowY: 'scroll', height: '60vh', width: '25vw', borderRadius: '10px' }}>
                 <div style={{ backgroundColor: '#c5c', color: '#000', padding: '1rem' }}>
                     <h3>Bienvenido al formulario en chat</h3>
                     <p>Si rellenas los cuadros con datos inválidos, no podrás avanzar.</p>
