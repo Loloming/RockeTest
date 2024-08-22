@@ -2,12 +2,12 @@
 
 ## Iniciar back-end y front-end
 
-Para iniciar el tanto el back-end como front-end de la app, se debe abrir en la terminal los directorios root de client y de server:
+Para iniciar tanto el back-end como front-end de la app, se debe abrir en la terminal los directorios root de client y de server:
 ```
 /client
 /server
 ```
-Ahora hay que ejecutar el siguiente comando para instalar todas las dependencias que el proyecto necesita para funcionar. Hay que ejecutar el comando tanto en /client como en /server. 
+Después hay que ejecutar el siguiente comando para instalar todas las dependencias que el proyecto necesita para funcionar. Hay que ejecutar el comando tanto en /client como en /server. 
 ```bash
 npm install
 ```
